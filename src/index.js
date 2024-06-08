@@ -4,24 +4,26 @@ addEventListener("fetch", (event) => {
 });
 
 const routes = {
-  "docker.libcuda.so": "https://registry-1.docker.io",
-  "quay.libcuda.so": "https://quay.io",
-  "gcr.libcuda.so": "https://gcr.io",
-  "k8s-gcr.libcuda.so": "https://k8s.gcr.io",
-  "k8s.libcuda.so": "https://registry.k8s.io",
-  "ghcr.libcuda.so": "https://ghcr.io",
-  "cloudsmith.libcuda.so": "https://docker.cloudsmith.io",
+  "docker.dk.300111.xyz": "https://registry-1.docker.io",
+  "quay.dk.300111.xyz": "https://quay.io",
+  "gcr.dk.300111.xyz": "https://gcr.io",
+  // 添加你的自定义主机名和对应的 Docker 注册中心地址
+  "mydockerregistry.dk.300111.xyz": "https://your-custom-docker-registry.com",
 };
 
 function routeByHosts(host) {
   if (host in routes) {
     return routes[host];
   }
+  // 如果需要，可以根据需要修改调试模式和目标上游地址
+  // 注意: MODE 和 TARGET_UPSTREAM 变量需要你自己定义和初始化
+  // 示例中的 "debug" 和 "TARGET_UPSTREAM" 只是占位符，请根据你的实际需求进行修改
   if (MODE == "debug") {
     return TARGET_UPSTREAM;
   }
   return "";
 }
+
 
 async function handleRequest(request) {
   const url = new URL(request.url);
